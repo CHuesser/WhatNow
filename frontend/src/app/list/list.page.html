@@ -12,11 +12,7 @@
 <ion-content>
   <ion-list>
     <ion-item *ngFor="let item of items">
-      <ion-icon [name]="item.icon" slot="start"></ion-icon>
-      {{item.title}}
-      <div class="item-note" slot="end">
-        {{item.note}}
-      </div>
+     <app-activity-card [activity]="{name: 'bla'}"></app-activity-card>
     </ion-item>
   </ion-list>
   <!--
@@ -24,4 +20,5 @@
       You navigated here from <b>{{selectedItem.title }}</b>
     </div>
   -->
+
 </ion-content>
