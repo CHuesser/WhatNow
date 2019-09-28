@@ -1,12 +1,22 @@
 <ion-card>
-    <ion-item>
-        <ion-icon name="pin" slot="start"></ion-icon>
-        <ion-label>ion-item in a card, icon left, button right</ion-label>
-        <ion-button fill="outline" slot="end">View</ion-button>
-    </ion-item>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="9">{{activity.name}}</ion-col>
+            <ion-col>type: Train</ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>price: 300 CHF</ion-col>
+            <ion-col>Duration 3h</ion-col>
+        </ion-row>
 
-    <ion-card-content>
-        {{activity.name}}
-        wat is dis even
-    </ion-card-content>
+    </ion-grid>
+
+    <div class="row">
+        <ion-img [src]="activity.thumbnail_url"></ion-img>
+    </div>
+    <div class="row">
+        <ion-card-content>
+            {{activity.name}}
+        </ion-card-content>
+    </div>
 </ion-card>
