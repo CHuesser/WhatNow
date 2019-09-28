@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Activity} from '../activity';
+import {Activity} from '../../types';
 
 @Component({
   selector: 'app-activity-card',

@@ -12,7 +12,7 @@ export class ActivityService {
     }
 
     getActivity(eventID: number): Observable<Activity> {
-        return this.getMultipleActivities().pipe(map(val => val.find(act => act.event_id === eventID)));
+        return this.getMultipleActivities().pipe(map(val => val.find(act => act.event_id == eventID)));
     }
 
     getMultipleActivities(): Observable<Activity[]> {
