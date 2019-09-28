@@ -3,6 +3,7 @@ import {Observable} from 'rxjs';
 import {Location, TimeFilterAPIRequest, TimeFilterAPIResponse} from './time-filter-api';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {map} from 'rxjs/operators';
+import {Settings} from './settings';
 
 export interface HasLocation {
     event_id: string | number;
@@ -16,17 +17,8 @@ export interface HasLocation {
 })
 export class TraveldistanceService {
 
-    private traveltimeplatformClient = '';
-    private traveltimeplatformSecret = '';
 
     constructor(public httpClient: HttpClient) {
-        this.httpClient.get('./assets/secrets.json').subscribe((secrets: any) => {
-            this.traveltimeplatformClient = secrets.traveltimeplatform.client;
-            this.traveltimeplatformSecret = secrets.traveltimeplatform.secret;
-            console.log('using credentials of the following traveltimeplatform client', this.traveltimeplatformClient);
-        }, error => {
-            console.warn('failed to load credentials for traveltimeplatform');
-        });
     }
 
     public filterReachableLocationsByTravelDistance<T extends HasLocation>(startingPoint: HasLocation, candidates: T[], travelTimeSeconds: number = 3600): Observable<T[]> {
@@ -80,8 +72,8 @@ export class TraveldistanceService {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json',
                     Accept: 'application/json',
-                    'X-Application-Id': this.traveltimeplatformClient,
-                    'X-Api-Key': this.traveltimeplatformSecret
+                    'X-Application-Id': Settings.traveltimeplatformClient,
+                    'X-Api-Key': Settings.traveltimeplatformSecret
                 })
             }
         ).pipe(

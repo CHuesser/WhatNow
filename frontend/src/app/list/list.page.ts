@@ -19,7 +19,9 @@ export class ListPage implements OnInit {
     constructor(private activityService: ActivityService, private route: ActivatedRoute, private distanceService: TraveldistanceService) {
     }
 
+
     ngOnInit() {
+
         this.route.queryParams.subscribe(q => {
 
             this.duration = Math.min(q.duration * 60 * 60, this.TRAVEL_TIME_PLATFORM_MAX_DURATION_SECONDS);
