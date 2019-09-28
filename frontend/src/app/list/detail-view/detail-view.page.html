@@ -39,7 +39,7 @@
                     <p>End</p>
                 </ion-col>
                 <ion-col>
-                    <p *ngIf="this.activity.end_time; else elseBlock" class="info-data">{{activity.start_time | slice: 0:5}}</p>
+                    <p *ngIf="this.activity.end_time; else elseBlock" class="info-data">{{activity.end_time | slice: 0:5}}</p>
                     <ng-template #elseBlock>
                         <p class="info-data">No info.</p>
                     </ng-template>
