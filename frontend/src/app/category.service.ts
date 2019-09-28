@@ -10,7 +10,6 @@ import {flatMap, map, switchMap} from 'rxjs/operators';
 export class CategoryService {
 
     URL = './assets/data/category.json';
-    category: Category;
 
     constructor(public httpClient: HttpClient) {
     }
