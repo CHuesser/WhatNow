@@ -1,10 +1,28 @@
 ion-img {
-  //max-width:100%;
-  //max-height:80%;
+  height: 150px;
   object-fit: cover;
-
 }
 
 ion-card {
-  max-height: 200px;
+  padding: 0 !important;
+  max-height: 250px;
+}
+ion-grid{
+  padding-left: 0 !important;
+  padding-top: 0 !important;
+}
+
+ion-row{
+  padding-left: 0 !important;
+  padding-top: 0 !important;
+}
+
+ion-col{
+  padding-left: 0 !important;
+  padding-top: 0 !important;
+  padding-right: 10px;
+}
+
+.card-text {
+  padding-left: 5px !important;
 }

@@ -3,6 +3,28 @@ export interface Activity {
     date: string;
     start_time: string;
     end_time?: any;
+    title_en: string;
+    short_description_en: string;
+    long_description_en: string;
+    homepage?: any;
+    price_information: string;
+    thumbnail_url: string;
+    address_street: string;
+    address_address_line?: any;
+    address_zip: string;
+    address_city: string;
+    address_country: string;
+    address_venue_name: string;
+    address_latitude: number;
+    address_longitude: number;
+    category: string;
+}
+
+export interface Guidle_Event {
+    event_id: number;
+    date: string;
+    start_time: string;
+    end_time?: any;
     title_de: string;
     title_en: string;
     title_fr: string;
