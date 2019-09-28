@@ -21,6 +21,20 @@ export interface Activity {
     duration: number;
 }
 
+export interface Category {
+    category_id: number;
+    title_de: string;
+    title_en: string;
+    title_fr: string;
+    title_it: string;
+    parent_category_id?: any;
+}
+
+export interface EventCategory {
+    event_id: number;
+    category_id: number;
+}
+
 export interface Guidle_Event {
     event_id: number;
     date: string;
