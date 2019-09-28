@@ -1,9 +1,290 @@
-[ {
-  "official_name" : "Aeugst am Albis",
-  "post_code4" : 8914,
-  "post_code6" : 891400,
-  "canton_label_short" : "ZH",
-  "latitude" : 47.266998773234,
-  "longitude" : 8.4883027148933
-}
-  ]
+[
+  {
+    "official_name" : "Regensdorf",
+    "post_code4" : 8105,
+    "event_id" : 810500,
+    "canton_label_short" : "ZH",
+    "address_latitude" : 47.430680890264,
+    "address_longitude" : 8.4655737416314,
+    "duration": 30
+  },
+  {
+    "official_name" : "Thalwil",
+    "post_code4" : 8800,
+    "event_id" : 880000,
+    "canton_label_short" : "ZH",
+    "address_latitude" : 47.29021627935,
+    "address_longitude" : 8.5691548928505,
+    "duration": 30
+  },
+  {
+    "official_name" : "Uster",
+    "post_code4" : 8610,
+    "event_id" : 861000,
+    "canton_label_short" : "ZH",
+    "address_latitude" : 47.345850015356,
+    "address_longitude" : 8.7168840934774,
+    "duration": 30
+  },
+  {
+    "official_name" : "Niederhasli",
+    "post_code4" : 8155,
+    "event_id" : 815500,
+    "canton_label_short" : "ZH",
+    "address_latitude" : 47.482319042923,
+    "address_longitude" : 8.4837925216261,
+    "duration": 30
+  },
+  {
+    "official_name" : "Zollikon",
+    "post_code4" : 8702,
+    "event_id" : 870200,
+    "canton_label_short" : "ZH",
+    "address_latitude" : 47.33827439561,
+    "address_longitude" : 8.5741694744424,
+    "duration": 30
+  },
+  {
+    "official_name" : "Lenzburg",
+    "post_code4" : 5600,
+    "event_id" : 560000,
+    "canton_label_short" : "AG",
+    "address_latitude" : 47.388066278451,
+    "address_longitude" : 8.1792912717388,
+    "duration": 30
+  },
+  {
+    "official_name" : "Winterthur",
+    "post_code4" : 8400,
+    "event_id" : 840000,
+    "canton_label_short" : "ZH",
+    "address_latitude" : 47.491623470661,
+    "address_longitude" : 8.7295303144167,
+    "duration": 30
+  },
+  {
+    "official_name" : "Wetzikon ZH",
+    "post_code4" : 8620,
+    "event_id" : 862000,
+    "canton_label_short" : "ZH",
+    "address_latitude" : 47.322389301036,
+    "address_longitude" : 8.8063617478138,
+    "duration": 30
+  },
+  {
+    "official_name" : "Frauenfeld",
+    "post_code4" : 8500,
+    "event_id" : 850000,
+    "canton_label_short" : "TG",
+    "address_latitude" : 47.555996762766,
+    "address_longitude" : 8.898241013613,
+    "duration": 60
+  },
+  {
+    "official_name" : "Luzern",
+    "post_code4" : 6003,
+    "event_id" : 600300,
+    "canton_label_short" : "LU",
+    "address_latitude" : 47.050057532815,
+    "address_longitude" : 8.2970089771469,
+    "duration": 60
+  },
+  {
+    "official_name" : "Rapperswil SG",
+    "post_code4" : 8640,
+    "event_id" : 864000,
+    "canton_label_short" : "SG",
+    "address_latitude" : 47.227594337549,
+    "address_longitude" : 8.8165878922228,
+    "duration": 60
+  },
+  {
+    "official_name" : "Schaffhausen",
+    "post_code4" : 8200,
+    "event_id" : 820000,
+    "canton_label_short" : "SH",
+    "address_latitude" : 47.717660177549,
+    "address_longitude" : 8.6259209380788,
+    "duration": 60
+  },
+  {
+    "official_name" : "Bad Zurzach",
+    "post_code4" : 5330,
+    "event_id" : 533000,
+    "canton_label_short" : "AG",
+    "address_latitude" : 47.582076444447,
+    "address_longitude" : 8.2952906806237,
+    "duration": 60
+  },
+  {
+    "official_name" : "Rohr b. Olten",
+    "post_code4" : 4655,
+    "event_id" : 465502,
+    "canton_label_short" : "SO",
+    "address_latitude" : 47.410597045772,
+    "address_longitude" : 7.9562659395237,
+    "duration": 60
+  },
+  {
+    "official_name" : "Langenthal",
+    "post_code4" : 4900,
+    "event_id" : 490000,
+    "canton_label_short" : "BE",
+    "address_latitude" : 47.211589436986,
+    "address_longitude" : 7.7924919394142,
+    "duration": 60
+  },
+  {
+    "official_name" : "Zofingen",
+    "post_code4" : 4800,
+    "event_id" : 480000,
+    "canton_label_short" : "AG",
+    "address_latitude" : 47.288815651939,
+    "address_longitude" : 7.9450655552111,
+    "duration": 60
+  },
+  {
+    "official_name" : "Bern",
+    "post_code4" : 3004,
+    "event_id" : 300400,
+    "canton_label_short" : "BE",
+    "address_latitude" : 46.980485563032,
+    "address_longitude" : 7.4520170527346,
+    "duration": 90
+  },
+  {
+    "official_name" : "Romanshorn",
+    "post_code4" : 8590,
+    "event_id" : 859000,
+    "canton_label_short" : "TG",
+    "address_latitude" : 47.564876845813,
+    "address_longitude" : 9.369405033041,
+    "duration": 90
+  },
+  {
+    "official_name" : "Flums",
+    "post_code4" : 8890,
+    "event_id" : 889000,
+    "canton_label_short" : "SG",
+    "address_latitude" : 47.090816437243,
+    "address_longitude" : 9.3446936740859,
+    "duration": 90
+  },
+  {
+    "official_name" : "Flüelen",
+    "post_code4" : 6454,
+    "event_id" : 645400,
+    "canton_label_short" : "UR",
+    "address_latitude" : 46.90537325318,
+    "address_longitude" : 8.62863958348,
+    "duration": 90
+  },
+  {
+    "official_name" : "Burgdorf",
+    "post_code4" : 3400,
+    "event_id" : 340000,
+    "canton_label_short" : "BE",
+    "address_latitude" : 47.056524071952,
+    "address_longitude" : 7.6246674586343,
+    "duration": 90
+  },
+  {
+    "official_name" : "Biel/Bienne",
+    "post_code4" : 2502,
+    "event_id" : 250200,
+    "canton_label_short" : "BE",
+    "address_latitude" : 47.141982873372,
+    "address_longitude" : 7.2457318668488,
+    "duration": 90
+  },
+  {
+    "official_name" : "Basel",
+    "post_code4" : 4001,
+    "event_id" : 400100,
+    "canton_label_short" : "BS",
+    "address_latitude" : 47.556362060751,
+    "address_longitude" : 7.588871505351,
+    "duration": 90
+  },
+  {
+    "official_name" : "Rheinfelden",
+    "post_code4" : 4310,
+    "event_id" : 431000,
+    "canton_label_short" : "AG",
+    "address_latitude" : 47.554146938692,
+    "address_longitude" : 7.7927396168555,
+    "duration": 90
+  },
+  {
+    "official_name" : "Chur",
+    "post_code4" : 7000,
+    "event_id" : 700000,
+    "canton_label_short" : "GR",
+    "address_latitude" : 46.848174902574,
+    "address_longitude" : 9.5327880612376,
+    "duration": 120
+  },
+  {
+    "official_name" : "Fribourg",
+    "post_code4" : 1700,
+    "event_id" : 170000,
+    "canton_label_short" : "FR",
+    "address_latitude" : 46.806184795172,
+    "address_longitude" : 7.1628005529666,
+    "duration": 120
+  },
+  {
+    "official_name" : "Montreux",
+    "post_code4" : 1820,
+    "event_id" : 182000,
+    "canton_label_short" : "VD",
+    "address_latitude" : 46.43083321294,
+    "address_longitude" : 6.9127903153827,
+    "duration": 120
+  },
+  {
+    "official_name" : "Locarno",
+    "post_code4" : 6600,
+    "event_id" : 660000,
+    "canton_label_short" : "TI",
+    "address_latitude" : 46.162540118466,
+    "address_longitude" : 8.7935509703938,
+    "duration": 120
+  },
+  {
+    "official_name" : "Lugano",
+    "post_code4" : 6900,
+    "event_id" : 690000,
+    "canton_label_short" : "TI",
+    "address_latitude" : 46.005409523382,
+    "address_longitude" : 8.9465642495544,
+    "duration": 120
+  },
+  {
+    "official_name" : "Bellinzona",
+    "post_code4" : 6500,
+    "event_id" : 650000,
+    "canton_label_short" : "TI",
+    "address_latitude" : 46.196995666366,
+    "address_longitude" : 9.0355276279587,
+    "duration": 120
+  },
+  {
+    "official_name" : "Sion",
+    "post_code4" : 1950,
+    "event_id" : 195000,
+    "canton_label_short" : "VS",
+    "address_latitude" : 46.233420122436,
+    "address_longitude" : 7.3619871766175,
+    "duration": 120
+  },
+  {
+    "official_name" : "Kandersteg",
+    "post_code4" : 3718,
+    "event_id" : 371800,
+    "canton_label_short" : "BE",
+    "address_latitude" : 46.494667326325,
+    "address_longitude" : 7.6747237342274,
+    "duration": 120
+  }
+]
