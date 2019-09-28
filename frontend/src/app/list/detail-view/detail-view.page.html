@@ -1,17 +1,18 @@
-<ion-header>
-    <ion-toolbar>
+<ion-header no-border>
+    <ion-toolbar transparent>
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
         <ion-title>{{activity.title_en}}</ion-title>
+
     </ion-toolbar>
+    <div class="overview" id="overview">
+        <img id="profile-image"  *ngIf="this.activity"  [src]="activity.thumbnail_url">
+    </div>
 </ion-header>
 
 <ion-content>
     <div id="profile-info" *ngIf="this.activity">
-        <div id="overview">
-            <img id="profile-image" [src]="activity.thumbnail_url">
-        </div>
         <div class="white">
             <ion-row class="profile-numbers">
                 <ion-col col-4>
