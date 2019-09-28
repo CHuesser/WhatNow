@@ -22,7 +22,6 @@ export class ListPage implements OnInit {
         this.route.queryParams.subscribe(q => {
 
             this.duration = Math.min(q.duration * 60 * 60, this.TRAVEL_TIME_PLATFORM_MAX_DURATION_SECONDS);
-            console.log(q.duration, this.duration);
 
             this.activityService.getMultipleActivities(1, 21).subscribe(value => {
                 this.activityService.findActivities(47.3788796, 8.538650199999999, value, this.duration).subscribe(found => {

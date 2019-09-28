@@ -85,7 +85,6 @@ export class ActivityService {
         } else {
             duration = duration / 60000;
         }
-        console.log(duration);
     } else {
         duration = null;
     }
