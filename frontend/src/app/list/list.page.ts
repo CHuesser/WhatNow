@@ -15,6 +15,6 @@ export class ListPage implements OnInit {
     }
 
     ngOnInit() {
-        this.activityService.getMultipleActivities().subscribe(value => this.items = value);
+        this.activityService.getMultipleActivities(1, 21).subscribe(value => this.items = value);
     }
 }
