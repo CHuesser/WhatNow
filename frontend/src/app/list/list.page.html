@@ -8,8 +8,7 @@
     </ion-title>
     <ion-buttons slot="primary">
       <ion-button>
-        <ion-icon slot="icon-only" name="star"></ion-icon>
-        <ion-img src="../../assets/icon/Logo_WN.png"><img  height="100" width=100/></ion-img>
+        <ion-img src="../../assets/icon/icon.png"></ion-img>
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
@@ -23,14 +22,14 @@
       </ion-col>
       <ion-col size="3">
         <ion-fab>
-          <ion-fab-button color="primary">
+          <ion-fab-button color="success">
             <ion-icon name="funnel"></ion-icon>
           </ion-fab-button>
           <ion-fab-list side="left">
-            <ion-fab-button color="primary" (click)="sortActivityByPrice()">
+            <ion-fab-button color="dark" (click)="sortActivityByPrice()">
               <ion-icon name="logo-usd"></ion-icon>
             </ion-fab-button>
-            <ion-fab-button color="primary" (click)="sortActivityByDuration()">
+            <ion-fab-button color="dark" (click)="sortActivityByDuration()">
               <ion-icon name="time"></ion-icon>
             </ion-fab-button>
           </ion-fab-list>

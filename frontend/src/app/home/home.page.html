@@ -22,10 +22,12 @@
                     <ion-label>Bored, Stuck or just no idea what to do?</ion-label>
                     <ion-label>Tell us how much time you have.</ion-label>
                     <ion-label>{{duration}}h</ion-label>
-                    <ion-range min="2" max="10" step="1" snaps="true" [(ngModel)]="duration">
-                        <ion-label slot="start">2h</ion-label>
-                        <ion-label slot="end">10h+</ion-label>
-                    </ion-range>
+                    <ion-item>
+                        <ion-range color="success" min="2" max="10" step="1" snaps="true" [(ngModel)]="duration">
+                            <ion-label style="font-size: medium" slot="start">2h</ion-label>
+                            <ion-label style="font-size: medium" slot="end">10h+</ion-label>
+                        </ion-range>
+                    </ion-item>
                 </ion-item-group>
             </ion-row>
         </ion-grid>
