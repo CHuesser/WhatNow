@@ -8,10 +8,10 @@ import {Component} from '@angular/core';
 export class HomePage {
   public isToggled = false;
 
-  public duration: number;
+  public duration = 4;
+  public location = 'Zürich'; // TODO determine programatically
 
   constructor() {
-    this.duration = 2;
   }
 
   notify() {
