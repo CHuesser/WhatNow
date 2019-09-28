@@ -2,7 +2,7 @@ export interface Activity {
     event_id: number;
     date: string;
     start_time: string;
-    end_time?: any;
+    end_time?: string;
     title_en: string;
     short_description_en: string;
     long_description_en: string;

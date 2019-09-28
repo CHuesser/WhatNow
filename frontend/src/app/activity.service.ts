@@ -7,6 +7,7 @@ import {EventCategoryService} from './event-category.service';
 import {CategoryService} from './category.service';
 import {flatMap} from 'tslint/lib/utils';
 import {Location, TimeFilterAPIRequest, TimeFilterAPIResponse} from './time-filter-api';
+import {Datetime} from '@ionic/core/dist/types/components/datetime/datetime';
 
 @Injectable({
     providedIn: 'root'
@@ -36,7 +37,8 @@ export class ActivityService {
         return this.httpClient.get<Activity[]>(this.URL).pipe(
             map(x => x.slice(startInt, endInt)),
             tap((y: Activity[]) => y.forEach(p => p.price = this.getPrice(p))),
-            tap((y: Activity[]) => y.forEach(c => this.getCategory(c.event_id).subscribe(bn => c.category = bn.title_en)))
+            tap((y: Activity[]) => y.forEach(c => this.getCategory(c.event_id).subscribe(bn => c.category = bn.title_en))),
+            tap((y: Activity[]) => y.forEach(d => d.duration = this.getDuration(d)))
         );
     }
 
@@ -71,22 +73,28 @@ export class ActivityService {
         return price;
     }
 
+    getDuration(activity: Activity): number {
+    let duration;
+    if (activity.start_time  && activity.end_time &&
+         activity.start_time.match('\\d{2}:\\d{2}:\\d{2}\\.\\d') &&
+            activity.end_time.match('\\d{2}:\\d{2}:\\d{2}\\.\\d')) {
+        duration = Date.parse('27 Jan 2019 ' + activity.end_time) - Date.parse( '27 Jan 2019 ' + activity.start_time);
+        if (duration < 0)    {
+            duration = 24 * 60 + duration / 60000;
+        } else {
+            duration = duration / 60000;
+        }
+        console.log(duration);
+    } else {
+        duration = null;
+    }
+    return duration;
+    }
+
     getCategory(eventID: number): Observable<Category> {
         return this.eventCategoryService.getEventCategory(eventID).pipe(map(c => c ? c.category_id : 1147),
             switchMap((n: number) => this.categoryService.getCategory(n)));
     }
-
-    sortActivityByPrice(startInt: number, endInt: number): Observable<Activity[]> {
-        return this.getMultipleActivities(startInt, endInt).pipe(tap(values => values.sort(
-            (a, b) => a.price.localeCompare(b.price))));
-    }
-
-// TODO
-    /*
-        sortActivityByDuration(startInt: number, endInt: number): Observable<Activity[]> {
-            return this.getMultipleActivities(startInt, endInt).pipe(tap( values => values.sort(
-                (a, b) => a.duration - b.duration)));
-        }*/
 
     public findActivities(latitude: number, longitude: number, candidates: Activity[], travelTimeSeconds: number = 3600): Observable<Activity[]> {
 

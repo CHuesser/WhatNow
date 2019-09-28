@@ -13,7 +13,11 @@
         </p>
     <ion-grid>
         <ion-row>
-            <ion-col>2h</ion-col>
+            <ion-col *ngIf="this.activity.duration; else second">{{activity.duration}} Min</ion-col>
+            <ng-template #second>
+                <ion-col *ngIf="this.activity.start_time; else elseBlock">Start time: {{activity.start_time | slice: 0:5}}</ion-col>
+            </ng-template>
+            <ng-template #elseBlock>no information</ng-template>
             <ion-col>
                 <ion-icon icon="train">train</ion-icon>
                 train
