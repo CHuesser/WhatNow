@@ -22,6 +22,16 @@ export interface Activity {
     price: string;
 }
 
+export interface SbbDestination {
+    official_name: string;
+    post_code4: number;
+    event_id: number;
+    canton_label_short: string;
+    address_latitude: number;
+    address_longitude: number;
+    time: number;
+}
+
 export interface Category {
     category_id: number;
     title_de: string;

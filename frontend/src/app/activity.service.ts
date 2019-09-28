@@ -2,11 +2,9 @@ import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {Activity, Category} from './types';
 import {map, switchMap, tap} from 'rxjs/operators';
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {EventCategoryService} from './event-category.service';
 import {CategoryService} from './category.service';
-import {Location, TimeFilterAPIRequest, TimeFilterAPIResponse} from './time-filter-api';
-import {Datetime} from '@ionic/core/dist/types/components/datetime/datetime';
 
 @Injectable({
     providedIn: 'root'
@@ -15,17 +13,8 @@ export class ActivityService {
 
     URL = './assets/data/event.json';
 
-    private traveltimeplatformClient = '';
-    private traveltimeplatformSecret = '';
 
     constructor(public httpClient: HttpClient, public eventCategoryService: EventCategoryService, public categoryService: CategoryService) {
-        this.httpClient.get('./assets/secrets.json').subscribe((secrets: any) => {
-            this.traveltimeplatformClient = secrets.traveltimeplatform.client;
-            this.traveltimeplatformSecret = secrets.traveltimeplatform.secret;
-            console.log('using credentials of the following traveltimeplatform client', this.traveltimeplatformClient);
-        }, error => {
-            console.warn('failed to load credentials for traveltimeplatform');
-        });
     }
 
     getActivity(eventID: number): Observable<Activity> {
@@ -96,64 +85,5 @@ export class ActivityService {
         return this.eventCategoryService.getEventCategory(eventID).pipe(map(c => c ? c.category_id : 1147),
             switchMap((n: number) => this.categoryService.getCategory(n)));
     }
-
-    public findActivities(latitude: number, longitude: number, candidates: Activity[], travelTimeSeconds: number = 3600): Observable<Activity[]> {
-
-        // api limit is 2000 locations FIXME sort by location first so we discard likely uninteresting events
-        candidates = candidates.slice(0, 1999);
-
-        const HERE_LOCATION_ID = 'here';
-        const HERE_LOCATION: Location = {
-            id: HERE_LOCATION_ID,
-            coords: {
-                lat: latitude,
-                lng: longitude
-            }
-        };
-        const locations: Location[] = candidates.map(value => {
-            return {
-                id: String(value.event_id),
-                coords: {
-                    lat: value.address_latitude,
-                    lng: value.address_longitude
-                }
-            };
-        });
-
-        const request: TimeFilterAPIRequest = {
-                locations: locations.concat(HERE_LOCATION),
-                departure_searches: [
-                    {
-                        id: 'first awesome search',
-                        arrival_location_ids: locations.map(l => l.id),
-                        departure_location_id: HERE_LOCATION.id,
-                        departure_time: new Date(),
-                        travel_time: travelTimeSeconds,
-                        properties: [
-                            'travel_time'
-                        ],
-                        transportation:
-                            {
-                                type: 'public_transport'
-                            }
-                    }
-                ]
-            }
-        ;
-
-
-        return this.httpClient.post<TimeFilterAPIResponse>('https://api.traveltimeapp.com/v4/time-filter',
-            request,
-            {
-                headers: new HttpHeaders({
-                    'Content-Type': 'application/json',
-                    Accept: 'application/json',
-                    'X-Application-Id': this.traveltimeplatformClient,
-                    'X-Api-Key': this.traveltimeplatformSecret
-                })
-            }
-        ).pipe(
-            map(response => response.results[0].locations),
-            map(reachable => candidates.filter(c => reachable.some(r => r.id === String(c.event_id)))));
-    }
 }
+
