@@ -1,0 +1,27 @@
+.white{
+  background-color: white;
+  margin-left: 30px;
+  margin-right: 30px;
+}
+// Following, Followers and all..
+.profile-numbers {
+
+  p {
+    color: #444;
+    font-size: medium;
+    margin-bottom: 3px;
+  }
+  span {
+    font-weight: bold;
+    font-size: 1.4rem;
+    color: #34354c;
+  }
+
+}
+hr {
+  margin-top: 20px;
+  border: 0;
+  height: 1px;
+  background: #444;
+  background: -webkit-linear-gradient(left, hsla(0, 0%, 0%, 0) 0%, rgb(188, 198, 214) 50%, hsla(0, 0%, 0%, 0) 100%);
+}
