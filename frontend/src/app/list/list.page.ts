@@ -24,14 +24,13 @@ export class ListPage implements OnInit {
 
             this.duration = Math.min(q.duration * 60 * 60, this.TRAVEL_TIME_PLATFORM_MAX_DURATION_SECONDS);
 
+            const startingPoint: HasLocation = {
+                address_latitude: parseFloat(q.lat),
+                address_longitude: parseFloat(q.long),
+                event_id: 'startlocation'
+            };
+
             this.activityService.getMultipleActivities(1, 21).subscribe(value => {
-
-                const startingPoint: HasLocation = {
-                    address_latitude: 47.3788796,
-                    address_longitude: 8.538650199999999,
-                    event_id: 'startlocation'
-                };
-
                 this.distanceService.filterReachableLocationsByTravelDistance(startingPoint, value, this.duration)
                     .subscribe((found: Activity[]) => {
                         console.log(found);

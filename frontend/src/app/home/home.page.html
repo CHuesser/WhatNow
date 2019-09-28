@@ -3,7 +3,8 @@
         <ion-img src="https://farm2.staticflickr.com/1139/5160475075_7cb176b4ce_b.jpg"></ion-img>
     </div>
     <ion-fab horizontal="center" vertical="center" slot="fixed">
-        <ion-fab-button color="primary" [routerLink]="'/list'" [queryParams]="{ duration: duration}">
+        <ion-fab-button color="primary" [routerLink]="'/list'"
+                        [queryParams]="{ duration: duration, long: locationlongitude, lat: locationLatitude}">
             <ion-icon name="arrow-dropright"></ion-icon>
         </ion-fab-button>
     </ion-fab>
@@ -12,7 +13,7 @@
         <ion-grid>
             <ion-row>
                 <span class="current-location"><ion-icon icon="pin"></ion-icon>
-                    {{location}}</span>
+                    {{locationDescriptiveName}}</span>
             </ion-row>
             <ion-row>
                 <ion-item-group>

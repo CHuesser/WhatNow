@@ -1,5 +1,7 @@
 {
   "name": "WhatNow",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
