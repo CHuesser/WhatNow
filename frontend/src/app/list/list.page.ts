@@ -56,10 +56,10 @@ export class ListPage implements OnInit {
             this.items.reverse();
         } else {
             this.items = this.items.sort((a, b) => {
-                if (Number(a.duration) > Number(b.duration)) {
+                if (a.duration > b.duration) {
                     return -1;
                 }
-                if (Number(b.duration) > Number(a.duration)) {
+                if (b.duration > a.duration) {
                     return 1;
                 }
                 return 0;
