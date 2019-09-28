@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {Activity, Category} from './types';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
@@ -11,21 +11,52 @@ import {CategoryService} from './category.service';
 })
 export class ActivityService {
 
-    URL = './assets/data/event.json';
+    private static allById: {};
+    private static all: Activity[];
 
+    private static readonly URL = './assets/data/event.json';
+
+    public static initialize(httpClient: HttpClient) {
+        if (!ActivityService.all) {
+            httpClient.get<Activity[]>(ActivityService.URL).subscribe(activities => {
+                ActivityService.all = activities;
+                ActivityService.allById = activities.reduce((hashmap, currentValue) => {
+                    hashmap[currentValue.event_id] = currentValue;
+                    return hashmap;
+                }, {});
+            });
+        }
+    }
 
     constructor(public httpClient: HttpClient, public eventCategoryService: EventCategoryService, public categoryService: CategoryService) {
+        ActivityService.initialize(this.httpClient);
     }
 
     getActivity(eventID: number): Observable<Activity> {
-        return this.httpClient.get<Activity[]>(this.URL).pipe(map(val => val.find(act => act.event_id == eventID)),
+        let observable: Observable<Activity>;
+
+        if (ActivityService.all) {
+            observable = of(ActivityService.allById[eventID]);
+        } else {
+            observable = this.httpClient.get<Activity[]>(ActivityService.URL).pipe(map(val => val.find(act => act.event_id == eventID)));
+        }
+
+        return observable.pipe(
             tap((y: Activity) => y.price = this.getPrice(y)),
             tap((c: Activity) => this.getCategory(c.event_id).subscribe(bn => c.category = bn.title_en)),
             tap((d: Activity) => d.duration = this.getDuration(d)));
     }
 
     getMultipleActivities(startInt: number, endInt: number): Observable<Activity[]> {
-        return this.httpClient.get<Activity[]>(this.URL).pipe(
+        let observable: Observable<Activity[]>;
+
+        if (ActivityService.all) {
+            observable = of(ActivityService.all.slice(startInt, endInt));
+        } else {
+            observable = this.httpClient.get<Activity[]>(ActivityService.URL).pipe(map(x => x.slice(startInt, endInt)));
+        }
+
+        return observable.pipe(
             map(x => x.slice(startInt, endInt)),
             tap((y: Activity[]) => y.forEach(p => p.price = this.getPrice(p))),
             tap((y: Activity[]) => y.forEach(c => this.getCategory(c.event_id).subscribe(bn => c.category = bn.title_en))),
@@ -65,20 +96,20 @@ export class ActivityService {
     }
 
     getDuration(activity: Activity): number {
-    let duration;
-    if (activity.start_time  && activity.end_time &&
-         activity.start_time.match('\\d{2}:\\d{2}:\\d{2}\\.\\d') &&
+        let duration;
+        if (activity.start_time && activity.end_time &&
+            activity.start_time.match('\\d{2}:\\d{2}:\\d{2}\\.\\d') &&
             activity.end_time.match('\\d{2}:\\d{2}:\\d{2}\\.\\d')) {
-        duration = Date.parse('27 Jan 2019 ' + activity.end_time) - Date.parse( '27 Jan 2019 ' + activity.start_time);
-        if (duration < 0)    {
-            duration = 24 * 60 + duration / 60000;
+            duration = Date.parse('27 Jan 2019 ' + activity.end_time) - Date.parse('27 Jan 2019 ' + activity.start_time);
+            if (duration < 0) {
+                duration = 24 * 60 + duration / 60000;
+            } else {
+                duration = duration / 60000;
+            }
         } else {
-            duration = duration / 60000;
+            duration = null;
         }
-    } else {
-        duration = null;
-    }
-    return duration;
+        return duration;
     }
 
     getCategory(eventID: number): Observable<Category> {

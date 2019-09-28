@@ -5,6 +5,7 @@ import {SbbdestinationService} from '../sbbdestination.service';
 import {HttpClient} from '@angular/common/http';
 import {Settings} from '../settings';
 import {ReverseGeocodingResponse} from '../geolocationapi';
+import {ActivityService} from '../activity.service';
 
 
 
@@ -25,6 +26,7 @@ export class HomePage implements OnInit {
 
     constructor(private geolocation: Geolocation, private sbbJson: SbbJsonService, private sbbLocation: SbbdestinationService, private httpClient: HttpClient) {
         Settings.initialize(httpClient);
+        ActivityService.initialize(httpClient);
     }
 
     ngOnInit(): void {
