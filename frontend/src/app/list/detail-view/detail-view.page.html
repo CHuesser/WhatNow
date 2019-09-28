@@ -1,16 +1,19 @@
 <ion-header>
     <ion-toolbar>
-        <ion-title>Cooking in Zurich</ion-title>
+        <ion-title>{{activity.title_de}}</ion-title>
     </ion-toolbar>
 </ion-header>
 
 <ion-content>
     <div id="profile-info" *ngIf="this.activity">
+        <div id="overview">
+            <img id="profile-image" [src]="activity.thumbnail_url">
+        </div>
         <div class="white">
             <ion-row class="profile-numbers">
                 <ion-col col-4>
                     <p>Time</p>
-                    <span>{{activity.start_time}}</span>
+                    <span>{{activity.start_time | slice:0:5}}</span>
                 </ion-col>
                 <ion-col col-4>
                     <p>Distance</p>
@@ -22,6 +25,7 @@
                 </ion-col>
             </ion-row>
             <hr/>
+            <span>{{activity.long_description_de}}</span>
         </div>
 
     </div>
