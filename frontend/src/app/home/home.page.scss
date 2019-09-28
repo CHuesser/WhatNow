@@ -75,7 +75,12 @@ p {
   padding-top: 20px;
   margin-bottom: 0;
   font-family: 'Strawberry Dreams';
-  src:url('../../assets/fonts/Strawberry_Dreams/strawberry_dreams.otf');
+  src: url('../../assets/fonts/Strawberry_Dreams/strawberry_dreams.ttf');
+}
+
+@font-face{
+  font-family: 'Strawberry Dreams';
+  src: url('../../assets/fonts/Strawberry_Dreams/strawberry_dreams.ttf');
 }
 .icon_title{
   font-size: 330px;
