@@ -18,7 +18,13 @@ export class ListPage implements OnInit {
     }
 
     ngOnInit() {
-        this.activityService.getMultipleActivities(1, 21).subscribe(value => this.items = value);
+        this.activityService.getMultipleActivities(1, 21).subscribe(value => {
+            this.activityService.findActivities(47.3788796, 8.538650199999999, value).subscribe(found => {
+                console.log(found);
+                this.items = found;
+            }, error => console.warn(error));
+        });
+
     }
 
     sortActivityByPrice(): Activity[] {
