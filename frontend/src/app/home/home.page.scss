@@ -5,3 +5,33 @@
 .toolbar-title {
   text-align: center;
 }
+
+ion-item-group {
+  width: 100%;
+}
+
+ion-img {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+}
+
+$fab-size: 150px;
+ion-fab-button {
+  width: $fab-size !important;
+  height: $fab-size !important;
+  margin-left: -(($fab-size - 56)/2); // 56 is default size of fab button
+  margin-top: -(($fab-size - 56)/2 - 10);
+}
+
+ion-fab-button > ion-icon {
+  width: 50px;
+  height: 50px;
+}
+
+.current-location {
+  width: 100%;
+  padding: 150px 0 50px 0;
+  text-align: center;
+  font-size: 28px;
+}

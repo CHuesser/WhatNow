@@ -1,70 +1,30 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-menu-button></ion-menu-button>
-    </ion-buttons>
-    <ion-title class="toolbar-title">
-      NOW WHAT
-    </ion-title>
-    <ion-buttons slot="primary">
-      <ion-button>
-        <ion-icon slot="icon-only" name="star"></ion-icon>
-        <ion-img src="../../assets/icon/Logo_WN.png"><img  height="100" width=100/></ion-img>
-      </ion-button>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-    <ion-card class="welcome-card ion-no-margin">
-      <ion-card-content>
-        <h2>Bored, stuck or just no idea what to do? We help you find the perfect activity right now!</h2>
-      </ion-card-content>
-    </ion-card>
-  <ion-item-group>
-    <ion-card-content>
-      <h1>Duration</h1>
-      <ion-range min="2" max="10" step="1" snaps="true" [(ngModel)]="duration">
-        <ion-label slot="start">2h</ion-label>
-        <ion-label slot="end">10h+</ion-label>
-      </ion-range>
-      <ion-item>
-        <p>Do you need a Hotel?</p>
-        <ion-toggle name="hotel" unchecked></ion-toggle>
-      </ion-item>
-    </ion-card-content>
-  </ion-item-group>
-  <ion-item-group>
-    <ion-card-content>
-      <h1>Budget</h1>
-      <ion-range min="0" max="100" step="10"  snaps="true">
-        <ion-label slot="start">0 CHF</ion-label>
-        <ion-label slot="end">100+ CHF </ion-label>
-      </ion-range>
-    </ion-card-content>
-  </ion-item-group>
-  <ion-item-group>
-    <ion-card-content>
-      <h1>Location</h1>
-      <ion-item>
-        <p>Do you want to start/end up in another location??</p>
-        <ion-toggle name="anotherLocation" [checked]="isToggled" (ionChange)="notify()" ></ion-toggle>
-      </ion-item>
-      <ion-card-content [hidden]="!isToggled">
-        <ion-item>
-          <ion-label position="stacked">Start location</ion-label>
-          <ion-input required type="text" placeholder="My location" oninput="handleStartLocation(event)"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label position="stacked">End location</ion-label>
-          <ion-input required type="text" placeholder="My location" oninput="handleEndLocation(event)"></ion-input>
-        </ion-item>
-      </ion-card-content>
-    </ion-card-content>
-  </ion-item-group>
-  <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-    <ion-fab-button color="primary" [routerLink]="'/list'" [queryParams]="{ duration: duration}">
-      <ion-icon name="arrow-dropright"></ion-icon>
-    </ion-fab-button>
-  </ion-fab>
+    <div style="height: 50%">
+        <ion-img src="https://farm2.staticflickr.com/1139/5160475075_7cb176b4ce_b.jpg"></ion-img>
+    </div>
+    <ion-fab horizontal="center" vertical="center" slot="fixed">
+        <ion-fab-button color="primary" [routerLink]="'/list'" [queryParams]="{ duration: duration}">
+            <ion-icon name="arrow-dropright"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+
+    <div>
+        <ion-grid>
+            <ion-row>
+                <span class="current-location"><ion-icon icon="pin"></ion-icon>
+                    {{location}}</span>
+            </ion-row>
+            <ion-row>
+                <ion-item-group>
+                    <label>Duration {{duration}}h</label>
+                    <ion-range min="2" max="10" step="1" snaps="true" [(ngModel)]="duration">
+                        <ion-label slot="start">2h</ion-label>
+                        <ion-label slot="end">10h+</ion-label>
+                    </ion-range>
+                </ion-item-group>
+            </ion-row>
+        </ion-grid>
+    </div>
+
+
 </ion-content>
