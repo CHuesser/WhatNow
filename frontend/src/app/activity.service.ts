@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable, of} from 'rxjs';
-import {Activity, Category, EventCategory} from './types';
+import {Observable} from 'rxjs';
+import {Activity, Category} from './types';
 import {map, switchMap, tap} from 'rxjs/operators';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {EventCategoryService} from './event-category.service';
 import {CategoryService} from './category.service';
-import {flatMap} from 'tslint/lib/utils';
 import {Location, TimeFilterAPIRequest, TimeFilterAPIResponse} from './time-filter-api';
 import {Datetime} from '@ionic/core/dist/types/components/datetime/datetime';
 
@@ -30,7 +29,9 @@ export class ActivityService {
     }
 
     getActivity(eventID: number): Observable<Activity> {
-        return this.httpClient.get<Activity[]>(this.URL).pipe(map(val => val.find(act => act.event_id == eventID)));
+        return this.httpClient.get<Activity[]>(this.URL).pipe(map(val => val.find(act => act.event_id == eventID)),
+            tap((y: Activity) => y.price = this.getPrice(y)),
+            tap((c: Activity) => this.getCategory(c.event_id).subscribe(bn => c.category = bn.title_en)));
     }
 
     getMultipleActivities(startInt: number, endInt: number): Observable<Activity[]> {

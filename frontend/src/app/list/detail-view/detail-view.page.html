@@ -1,13 +1,20 @@
 <ion-header no-border>
-    <ion-toolbar transparent>
+    <ion-toolbar>
         <ion-buttons slot="start">
             <ion-back-button defaultHref="/"></ion-back-button>
         </ion-buttons>
-        <ion-title *ngIf="this.activity"  >{{activity.title_en}}</ion-title>
-
+        <ion-title *ngIf="this.activity">{{activity.title_en}}</ion-title>
+        <ion-buttons slot="primary">
+            <ion-buttons slot="primary">
+                <ion-button>
+                    <ion-icon slot="icon-only" name="star"></ion-icon>
+                    <ion-img src="../../assets/icon/Logo_WN.png"><img height="100" width=100/></ion-img>
+                </ion-button>
+            </ion-buttons>
+        </ion-buttons>
     </ion-toolbar>
     <div class="overview" id="overview">
-        <img id="profile-image"  *ngIf="this.activity"  [src]="activity.thumbnail_url">
+        <img id="profile-image" *ngIf="this.activity" [src]="activity.thumbnail_url">
     </div>
 </ion-header>
 
@@ -17,19 +24,23 @@
             <ion-row class="profile-numbers">
                 <ion-col col-4>
                     <p>Time</p>
-                    <span>{{activity.start_time | slice:0:5}}</span>
+                    <ion-col>{{activity.start_time | slice:0:5}}</ion-col>
                 </ion-col>
                 <ion-col col-4>
-                    <p>Distance</p>
-                    <span>5 min walking</span>
+                    <p>Journey</p>
+                    <ion-col>
+                        <ion-icon icon="train">train</ion-icon>
+                        train
+                    </ion-col>
                 </ion-col>
                 <ion-col col-4>
-                    <p>Cost</p>
-                    <span>{{activity.price_information}}</span>
+                    <p>~ CHF</p>
+                    <ion-col *ngIf="this.activity.price; else elseBlock"> {{activity.price}} </ion-col>
+                    <ng-template #elseBlock>no information</ng-template>
                 </ion-col>
             </ion-row>
             <hr/>
-            <span>{{activity.long_description_en}}</span>
+            <span [innerHTML]="activity.long_description_en"></span>
         </div>
 
     </div>
