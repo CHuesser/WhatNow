@@ -1,40 +1,30 @@
 <ion-card button="true" [routerLink]="''+activity.event_id" routerDirection="forward">
     <ion-card-content no-padding>
+        <ion-img [src]="activity.thumbnail_url"></ion-img>
+    </ion-card-content>
+    <ion-card-content>
+        <p>
+            <ion-card-title>{{activity.title_en}}</ion-card-title>
+        </p>
+        <p>
+            <ion-chip color="tertiary">
+                <ion-label>Tertiary</ion-label>
+            </ion-chip>
+            <ion-chip color="secondary">
+                <ion-label>Secondary</ion-label>
+            </ion-chip>
+            <ion-chip color="secondary">
+                <ion-label>Secondary</ion-label>
+            </ion-chip>
+        </p>
     <ion-grid>
         <ion-row>
-            <ion-col size="4">
-                <ion-img [src]="activity.thumbnail_url"></ion-img>
+            <ion-col>2h</ion-col>
+            <ion-col>
+                <ion-icon icon="train">train</ion-icon>
+                train
             </ion-col>
-            <ion-col size="8">
-                <p>
-                    <ion-card-title>{{activity.title_en}}</ion-card-title>
-                </p>
-                <p>
-                    <ion-chip color="tertiary">
-                        <ion-label>Tertiary</ion-label>
-                    </ion-chip>
-                    <ion-chip color="secondary">
-                        <ion-label>Secondary</ion-label>
-                    </ion-chip>
-                    <ion-chip color="secondary">
-                        <ion-label>Secondary</ion-label>
-                    </ion-chip>
-                </p>
-            </ion-col>
-        </ion-row>
-    </ion-grid>
-    <ion-grid class="card-text">
-        <ion-row>
-            <ion-col>Duration:</ion-col>
-            <ion-col>{{activity.end_time}}</ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>Transportation:</ion-col>
-            <ion-col>TODO</ion-col>
-        </ion-row>
-        <ion-row>
-            <ion-col>Price:</ion-col>
-            <ion-col>{{activity.price_information}}</ion-col>
+            <ion-col>min. 15 CHF</ion-col>
         </ion-row>
     </ion-grid>
     </ion-card-content>
