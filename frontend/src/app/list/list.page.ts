@@ -1,8 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivityService} from '../activity.service';
 import {Activity} from '../types';
-import {Observable} from 'rxjs';
-import {tap} from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
     selector: 'app-list',
@@ -13,18 +12,25 @@ export class ListPage implements OnInit {
     items: Activity[];
     private priceSorted: boolean;
     private timeSorted: boolean;
+    private duration: number;
+    private readonly TRAVEL_TIME_PLATFORM_MAX_DURATION_SECONDS = 14400;
 
-    constructor(private activityService: ActivityService) {
+    constructor(private activityService: ActivityService, private route: ActivatedRoute) {
     }
 
     ngOnInit() {
-        this.activityService.getMultipleActivities(1, 21).subscribe(value => {
-            this.activityService.findActivities(47.3788796, 8.538650199999999, value).subscribe(found => {
-                console.log(found);
-                this.items = found;
-            }, error => console.warn(error));
-        });
+        this.route.queryParams.subscribe(q => {
 
+            this.duration = Math.min(q.duration * 60 * 60, this.TRAVEL_TIME_PLATFORM_MAX_DURATION_SECONDS);
+            console.log(q.duration, this.duration);
+
+            this.activityService.getMultipleActivities(1, 21).subscribe(value => {
+                this.activityService.findActivities(47.3788796, 8.538650199999999, value, this.duration).subscribe(found => {
+                    console.log(found);
+                    this.items = found;
+                }, error => console.warn(error));
+            });
+        });
     }
 
     sortActivityByPrice(): Activity[] {

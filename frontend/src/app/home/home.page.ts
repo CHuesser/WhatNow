@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +7,8 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
   public isToggled = false;
+
+  public duration: number;
 
   constructor() {}
 

@@ -24,7 +24,7 @@
   <ion-item-group>
     <ion-card-content>
       <h1>Duration</h1>
-      <ion-range min="2" max="10" step="1" snaps="true">
+      <ion-range min="2" max="10" step="1" snaps="true" [(ngModel)]="duration">
         <ion-label slot="start">2h</ion-label>
         <ion-label slot="end">10h+</ion-label>
       </ion-range>
@@ -63,7 +63,7 @@
     </ion-card-content>
   </ion-item-group>
   <ion-fab horizontal="end" vertical="bottom" slot="fixed">
-      <ion-fab-button color="primary" [routerLink]="'/list'">
+    <ion-fab-button color="primary" [routerLink]="'/list'" [queryParams]="{ duration: duration}">
       <ion-icon name="arrow-dropright"></ion-icon>
     </ion-fab-button>
   </ion-fab>
