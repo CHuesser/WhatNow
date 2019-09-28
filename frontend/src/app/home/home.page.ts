@@ -1,6 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {SbbJsonService} from '../sbb-json.service';
+import {SbbdestinationService} from '../sbbdestination.service';
 
 
 @Component({
@@ -18,7 +19,7 @@ export class HomePage implements OnInit {
     public locationLatitude = 47.3788796;
     public locationlongitude = 8.538650199999999;
 
-    constructor(private geolocation: Geolocation, private sbbJson: SbbJsonService) {
+    constructor(private geolocation: Geolocation, private sbbJson: SbbJsonService, private sbbLocation: SbbdestinationService) {
     }
 
     ngOnInit(): void {
@@ -33,10 +34,10 @@ export class HomePage implements OnInit {
             }
         );
         this.sbbJson.getDestinationTime();
+        this.sbbLocation.getLocation('Biel');
     }
 
     notify() {
         this.isToggled = !this.isToggled;
     }
-
 }

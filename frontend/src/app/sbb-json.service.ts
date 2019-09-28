@@ -40,5 +40,4 @@ export class SbbJsonService {
                 }, error => console.warn(error));
         })).subscribe();
     }
-
 }

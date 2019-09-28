@@ -32,6 +32,24 @@ export interface SbbDestination {
     time: number;
 }
 
+export interface SBBLocation {
+    id: number;
+    name: string;
+    coordinates: Coordinates;
+    type: string;
+    tariffBorder: boolean;
+    borderPointCH: boolean;
+    lon: number;
+    lat: number;
+    links: any[];
+}
+
+interface Coordinates {
+    latitude: number;
+    longitude: number;
+}
+
+
 export interface Category {
     category_id: number;
     title_de: string;
