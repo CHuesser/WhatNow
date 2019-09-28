@@ -1,8 +1,8 @@
 import {Injectable} from '@angular/core';
-import {Observable} from "rxjs";
-import {Location, TimeFilterAPIRequest, TimeFilterAPIResponse} from "./time-filter-api";
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {map} from "rxjs/operators";
+import {Observable} from 'rxjs';
+import {Location, TimeFilterAPIRequest, TimeFilterAPIResponse} from './time-filter-api';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 export interface HasLocation {
     event_id: string | number;
@@ -29,7 +29,7 @@ export class TraveldistanceService {
         });
     }
 
-    public filterReachableLocationsByTravelDistance<T extends HasLocation>(startingPoint: T, candidates: T[], travelTimeSeconds: number = 3600): Observable<T[]> {
+    public filterReachableLocationsByTravelDistance<T extends HasLocation>(startingPoint: HasLocation, candidates: T[], travelTimeSeconds: number = 3600): Observable<T[]> {
 
         // api limit is 2000 locations FIXME sort by location first so we discard likely uninteresting events
         candidates = candidates.slice(0, 1999);

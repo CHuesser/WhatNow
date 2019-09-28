@@ -27,12 +27,14 @@ export class HomePage implements OnInit {
             this.locationlongitude = position.coords.longitude;
 
             console.log('at position', position);
+
+            // this.sbbJson.getSbbDestinationsReachableFrom(this.locationLatitude, this.locationlongitude, 7200);
+
             // TODO fetch descriptive name from google api
         }).catch((error) => {
                 console.log('Error getting location', error);
             }
         );
-        this.sbbJson.getDestinationTime();
     }
 
     notify() {
