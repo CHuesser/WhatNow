@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {Activity, SbbDestination} from './types';
+import {SbbDestination} from './types';
 import {HttpClient} from '@angular/common/http';
 import {HasLocation, TraveldistanceService} from './traveldistance.service';
 import {map} from 'rxjs/operators';
@@ -29,6 +29,8 @@ export class SbbJsonService {
                 address_longitude: 8.538650199999999,
                 event_id: 'startlocation'
             };
+
+            console.log('loaded sbb thignies');
 
             this.traveldistanceService.filterReachableLocationsByTravelDistance(startingPoint, value, this.duration)
                 .subscribe((found: SbbDestination[]) => {
