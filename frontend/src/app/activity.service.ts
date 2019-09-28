@@ -1,4 +1,7 @@
 import {Injectable} from '@angular/core';
+import {Observable, of} from 'rxjs';
+import {Activity} from './types';
+import {map} from 'rxjs/operators';
 
 @Injectable({
     providedIn: 'root'
@@ -8,11 +11,11 @@ export class ActivityService {
     constructor() {
     }
 
-    getActivity(eventID: number) {
-        this.getMultipleActivities().find(act => act.event_id === eventID);
+    getActivity(eventID: number): Observable<Activity> {
+        return this.getMultipleActivities().pipe(map(val => val.find(act => act.event_id === eventID)));
     }
 
-    getMultipleActivities() {
+    getMultipleActivities(): Observable<Activity[]> {
 
         const ACTIVITIES = [{
             event_id: 2014423,
@@ -155,6 +158,6 @@ export class ActivityService {
             address_latitude: 47.3931789,
             address_longitude: 8.5146315
         }];
-        return ACTIVITIES;
+        return of(ACTIVITIES);
     }
 }
