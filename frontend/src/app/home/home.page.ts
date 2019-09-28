@@ -2,6 +2,10 @@ import {Component, OnInit} from '@angular/core';
 import {Geolocation} from '@ionic-native/geolocation/ngx';
 import {SbbJsonService} from '../sbb-json.service';
 import {SbbdestinationService} from '../sbbdestination.service';
+import {HttpClient} from '@angular/common/http';
+import {Settings} from '../settings';
+import {ReverseGeocodingResponse} from '../geolocationapi';
+
 
 
 @Component({
@@ -27,14 +31,22 @@ export class HomePage implements OnInit {
             this.locationLatitude = position.coords.latitude;
             this.locationlongitude = position.coords.longitude;
 
-            console.log('at position', position);
-            // TODO fetch descriptive name from google api
+            this.httpClient.get<ReverseGeocodingResponse>(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${this.locationLatitude},${this.locationlongitude}&result_type=locality&language=en-GB&key=${Settings.googleMapsPlatformKey}`).subscribe(data => {
+                if (data.results) {
+                    const location = data.results.find(res => res.types.some(s => s === 'political') &&
+                        res.types.some(s => s === 'locality'));
+                    if (location) {
+                        this.locationDescriptiveName = location.formatted_address;
+                    }
+                }
+            });
+
+            // this.sbbJson.getSbbDestinationsReachableFrom(this.locationLatitude, this.locationlongitude, 7200);
+
         }).catch((error) => {
                 console.log('Error getting location', error);
             }
         );
-        this.sbbJson.getDestinationTime();
-        this.sbbLocation.getLocation('Biel');
     }
 
     notify() {
