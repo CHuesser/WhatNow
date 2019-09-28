@@ -23,8 +23,12 @@
         <div class="white">
             <ion-row class="profile-numbers">
                 <ion-col col-4>
-                    <p>Time</p>
-                    <ion-col>{{activity.start_time | slice:0:5}}</ion-col>
+                    <p>Min</p>
+                    <ion-col *ngIf="this.activity.duration; else second">{{activity.duration}}</ion-col>
+                    <ng-template #second>
+                        <ion-col *ngIf="this.activity.start_time; else elseBlock">Start time: {{activity.start_time | slice: 0:5}}</ion-col>
+                    </ng-template>
+                    <ng-template #elseBlock>no information</ng-template>
                 </ion-col>
                 <ion-col col-4>
                     <p>Journey</p>
