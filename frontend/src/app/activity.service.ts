@@ -31,7 +31,8 @@ export class ActivityService {
     getActivity(eventID: number): Observable<Activity> {
         return this.httpClient.get<Activity[]>(this.URL).pipe(map(val => val.find(act => act.event_id == eventID)),
             tap((y: Activity) => y.price = this.getPrice(y)),
-            tap((c: Activity) => this.getCategory(c.event_id).subscribe(bn => c.category = bn.title_en)));
+            tap((c: Activity) => this.getCategory(c.event_id).subscribe(bn => c.category = bn.title_en)),
+            tap((d: Activity) => d.duration = this.getDuration(d)));
     }
 
     getMultipleActivities(startInt: number, endInt: number): Observable<Activity[]> {

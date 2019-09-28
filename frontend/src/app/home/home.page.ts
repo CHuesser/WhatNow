@@ -10,7 +10,9 @@ export class HomePage {
 
   public duration: number;
 
-  constructor() {}
+  constructor() {
+    this.duration = 2;
+  }
 
   notify() {
     this.isToggled = !this.isToggled;
