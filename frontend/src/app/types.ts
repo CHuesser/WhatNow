@@ -18,6 +18,7 @@ export interface Activity {
     address_latitude: number;
     address_longitude: number;
     category: string;
+    duration: number;
 }
 
 export interface Guidle_Event {
