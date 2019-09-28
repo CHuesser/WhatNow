@@ -1,8 +1,11 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {Activity} from './types';
-import {map, tap} from 'rxjs/operators';
+import {Activity, Category, EventCategory} from './types';
+import {map, switchMap, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
+import {EventCategoryService} from './event-category.service';
+import {CategoryService} from './category.service';
+import {flatMap} from 'tslint/lib/utils';
 
 @Injectable({
     providedIn: 'root'
@@ -11,7 +14,7 @@ export class ActivityService {
 
     URL = './assets/data/event.json';
 
-    constructor(public httpClient: HttpClient) {
+    constructor(public httpClient: HttpClient, public eventCategoryService: EventCategoryService, public categoryService: CategoryService) {
     }
 
     getActivity(eventID: number): Observable<Activity> {
@@ -21,8 +24,9 @@ export class ActivityService {
     getMultipleActivities(startInt: number, endInt: number): Observable<Activity[]> {
         return this.httpClient.get<Activity[]>(this.URL).pipe(
             map(x => x.slice(startInt, endInt)),
-            tap((y: Activity[]) => y.forEach(p => p.price = this.getPrice(p))
-            ));
+            tap((y: Activity[]) => y.forEach(p => p.price = this.getPrice(p))),
+            tap((y: Activity[]) => y.forEach(c => this.getCategory(c.event_id).subscribe(bn => c.category = bn.title_en)))
+        );
     }
 
     getPrice(activity: Activity): string {
@@ -40,29 +44,34 @@ export class ActivityService {
                 activity.price_information.includes('free')) {
                 price = 'Free';
             } else if (activity.price_information.match(pattern1))  {
-                price = 'ca. ' + activity.price_information.match(pattern1)[0].match('\\d+') + ' CHF';
+                price = activity.price_information.match(pattern1)[0].match('\\d+');
             } else if (activity.price_information.match(pattern2))   {
-                price = 'ca. ' + activity.price_information.match(pattern2)[0].match('\\d+') + ' CHF';
+                price = activity.price_information.match(pattern2)[0].match('\\d+');
             } else if (activity.price_information.match(pattern3))  {
-                price = 'ca. ' + activity.price_information.match(pattern3)[0].match('\\d+') + ' CHF';
+                price = activity.price_information.match(pattern3)[0].match('\\d+');
             } else if (activity.price_information.match(pattern4))   {
-                price = 'ca. ' + activity.price_information.match(pattern4)[0].match('\\d+') + ' CHF';
+                price = activity.price_information.match(pattern4)[0].match('\\d+');
             } else if (activity.price_information.match(pattern5))  {
-                price = 'ca. ' + activity.price_information.match(pattern5)[0].match('\\d+') + ' CHF';
+                price = activity.price_information.match(pattern5)[0].match('\\d+');
             }
         } else {
-            price =  'no information';
+            price =  null;
         }
         return price;
     }
 
-// TODO
-   /* sortActivityByPrice(startInt: number, endInt: number): Observable<Activity[]> {
-    return this.getMultipleActivities(startInt, endInt).pipe(tap( values => values.sort(
-        (a, b) => a.price_information - b.price_information)));
-
+    getCategory(eventID: number): Observable<Category> {
+        return this.eventCategoryService.getEventCategory(eventID).pipe(map (c => c ? c.category_id : 1147),
+            switchMap((n: number) => this.categoryService.getCategory(n)));
     }
 
+   sortActivityByPrice(startInt: number, endInt: number): Observable<Activity[]> {
+    return this.getMultipleActivities(startInt, endInt).pipe(tap( values => values.sort(
+        (a, b) => a.price.localeCompare(b.price))));
+    }
+
+// TODO
+/*
     sortActivityByDuration(startInt: number, endInt: number): Observable<Activity[]> {
         return this.getMultipleActivities(startInt, endInt).pipe(tap( values => values.sort(
             (a, b) => a.duration - b.duration)));

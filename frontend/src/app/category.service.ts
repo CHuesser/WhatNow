@@ -18,13 +18,11 @@ export class CategoryService {
         return this.httpClient.get<Category[]>(this.URL).pipe(map(val => val.find(cat => cat.category_id == categoryID),
             switchMap((cat: Category) => {
                 if (cat.parent_category_id) {
-                    return this.httpClient.get<Category[]>(this.URL).pipe(map(val => val.find(cat2 => cat2.category_id == cat.parent_category_id)));
+                    return this.httpClient.get<Category[]>(this.URL).pipe(map
+                    (val => val.find(cat2 => cat2.category_id == cat.parent_category_id)));
                 } else {
                     return of(cat);
                 }
             })));
-
-
     }
-
 }

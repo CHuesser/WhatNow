@@ -10,7 +10,25 @@
 </ion-header>
 
 <ion-content>
-  <ion-searchbar></ion-searchbar>
+  <ion-grid>
+    <ion-row>
+      <ion-col size="9">
+        <ion-searchbar></ion-searchbar>
+      </ion-col>
+      <ion-col size="3">
+        <ion-fab>
+          <ion-fab-button color="primary">
+            <ion-icon name="funnel"></ion-icon>
+          </ion-fab-button>
+          <ion-fab-list side="left">
+            <button ion-fab><ion-title>Price</ion-title></button>
+            <button ion-fab><ion-title>Duration</ion-title></button>
+          </ion-fab-list>
+        </ion-fab>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <ion-select-option></ion-select-option>
   <ion-list>
     <ng-container *ngFor="let item of items">

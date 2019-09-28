@@ -7,14 +7,8 @@
             <ion-card-title>{{activity.title_en}}</ion-card-title>
         </p>
         <p>
-            <ion-chip color="tertiary">
-                <ion-label>Tertiary</ion-label>
-            </ion-chip>
-            <ion-chip color="secondary">
-                <ion-label>Secondary</ion-label>
-            </ion-chip>
-            <ion-chip color="secondary">
-                <ion-label>Secondary</ion-label>
+            <ion-chip *ngIf="this.activity.category" color="secondary">
+                <ion-label>{{activity.category}}</ion-label>
             </ion-chip>
         </p>
     <ion-grid>
@@ -24,7 +18,8 @@
                 <ion-icon icon="train">train</ion-icon>
                 train
             </ion-col>
-            <ion-col>{{activity.price}}</ion-col>
+            <ion-col *ngIf="this.activity.price; else elseBlock">ca. {{activity.price}} CHF</ion-col>
+            <ng-template #elseBlock>no information</ng-template>
         </ion-row>
     </ion-grid>
     </ion-card-content>
