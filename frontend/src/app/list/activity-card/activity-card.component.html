@@ -1,6 +1,6 @@
 <ion-card button="true" [routerLink]="''+activity.event_id" routerDirection="forward">
     <ion-card-content class="ion-no-padding">
-        <ion-img [src]="activity.thumbnail_url"></ion-img>
+        <ion-img [src]="activity.thumbnail_url" alt=""></ion-img>
     </ion-card-content>
     <ion-card-content>
         <p>
@@ -13,17 +13,25 @@
         </p>
     <ion-grid>
         <ion-row>
-            <ion-col *ngIf="this.activity.duration; else second">{{activity.duration}} Min</ion-col>
-            <ng-template #second>
-                <ion-col *ngIf="this.activity.start_time; else elseBlock">Start time: {{activity.start_time | slice: 0:5}}</ion-col>
-            </ng-template>
-            <ng-template #elseBlock>no information</ng-template>
+            <ion-col>
+                <p *ngIf="this.activity.duration; else second">{{activity.duration}} Min</p>
+                <ng-template #second>
+                    <p *ngIf="this.activity.start_time; else elseBlock">Start time: {{activity.start_time | slice: 0:5}}</p>
+                </ng-template>
+                <ng-template #elseBlock>
+                    <p>No info.</p>
+                </ng-template>
+            </ion-col>
             <ion-col>
                 <ion-icon icon="train">train</ion-icon>
                 train
             </ion-col>
-            <ion-col *ngIf="this.activity.price; else elseBlock">ca. {{activity.price}} CHF</ion-col>
-            <ng-template #elseBlock>no information</ng-template>
+            <ion-col >
+                <p *ngIf="this.activity.price; else elseBlock">ca. {{activity.price}} CHF</p>
+            <ng-template #elseBlock>
+                <p>No info.</p>
+            </ng-template>
+            </ion-col>
         </ion-row>
     </ion-grid>
     </ion-card-content>

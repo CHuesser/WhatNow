@@ -13,40 +13,61 @@
             </ion-buttons>
         </ion-buttons>
     </ion-toolbar>
-    <div class="overview" id="overview">
-        <img id="profile-image" *ngIf="this.activity" [src]="activity.thumbnail_url">
-    </div>
+    <ion-card no-margin>
+        <img id="profile-image" *ngIf="this.activity" [src]="activity.thumbnail_url" alt="">
+    </ion-card>
 </ion-header>
-
 <ion-content>
     <div id="profile-info" *ngIf="this.activity">
-        <div class="white">
-            <ion-row class="profile-numbers">
-                <ion-col col-4>
-                    <p>Min</p>
-                    <ion-col *ngIf="this.activity.duration; else second">{{activity.duration}}</ion-col>
-                    <ng-template #second>
-                        <ion-col *ngIf="this.activity.start_time; else elseBlock">Start time: {{activity.start_time | slice: 0:5}}</ion-col>
+            <ion-card>
+            <ion-row>
+                <ion-chip *ngIf="this.activity.category" color="secondary">
+                    <ion-label>{{activity.category}}</ion-label>
+                </ion-chip>
+            </ion-row>
+            <ion-row>
+                <ion-col>
+                    <p>Start</p>
+                </ion-col>
+                <ion-col>
+                    <p *ngIf="this.activity.start_time; else elseBlock" class="info-data">{{activity.start_time | slice: 0:5}}</p>
+                    <ng-template #elseBlock>
+                        <p class="info-data">No info.</p>
                     </ng-template>
-                    <ng-template #elseBlock>no information</ng-template>
                 </ion-col>
-                <ion-col col-4>
-                    <p>Journey</p>
-                    <ion-col>
-                        <ion-icon icon="train">train</ion-icon>
-                        train
-                    </ion-col>
+                <ion-col>
+                    <p>End</p>
                 </ion-col>
-                <ion-col col-4>
-                    <p>~ CHF</p>
-                    <ion-col *ngIf="this.activity.price; else elseBlock"> {{activity.price}} </ion-col>
-                    <ng-template #elseBlock>no information</ng-template>
+                <ion-col>
+                    <p *ngIf="this.activity.end_time; else elseBlock" class="info-data">{{activity.start_time | slice: 0:5}}</p>
+                    <ng-template #elseBlock>
+                        <p class="info-data">No info.</p>
+                    </ng-template>
                 </ion-col>
             </ion-row>
-            <hr/>
-            <span [innerHTML]="activity.long_description_en"></span>
-        </div>
-
+            <ion-row>
+                <ion-col>
+                    <p>Journey</p>
+                </ion-col>
+                <ion-col>
+                    <p>
+                        <ion-icon icon="train"></ion-icon>
+                    </p>
+                </ion-col>
+                <ion-col>
+                    <p>Price</p>
+                </ion-col>
+                <ion-col >
+                    <p *ngIf="this.activity.price; else elseBlock" class="info-data">{{activity.price}} CHF</p>
+                    <ng-template #elseBlock>
+                        <p class="info-data">No info.</p>
+                    </ng-template>
+                </ion-col>
+            </ion-row>
+                <hr>
+                <ion-card-content>
+                <span [innerHTML]="activity.long_description_en"></span>
+                </ion-card-content>
+            </ion-card>
     </div>
-
 </ion-content>

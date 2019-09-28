@@ -26,3 +26,12 @@ ion-col{
   padding-left: 5px !important;
 }*/
 
+@font-face {
+  font-family: 'Roboto';
+  src:url('../../../assets/fonts/Roboto/Roboto-Medium.ttf');
+}
+
+ion-img{
+  background-image: url('../../../assets/img/cooking.jpg');
+}
+

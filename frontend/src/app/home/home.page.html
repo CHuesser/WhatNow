@@ -8,15 +8,16 @@
         </ion-fab-button>
     </ion-fab>
 
-    <div>
+    <ion-content>
         <ion-grid>
             <ion-row>
-                <span class="current-location"><ion-icon icon="pin"></ion-icon>
+                <span class="current-location">
+                    <ion-icon icon="pin"></ion-icon>
                     {{location}}</span>
             </ion-row>
             <ion-row>
                 <ion-item-group>
-                    <label>Duration {{duration}}h</label>
+                    <label>How much of your time can you spend? {{duration}}h</label>
                     <ion-range min="2" max="10" step="1" snaps="true" [(ngModel)]="duration">
                         <ion-label slot="start">2h</ion-label>
                         <ion-label slot="end">10h+</ion-label>
@@ -24,7 +25,5 @@
                 </ion-item-group>
             </ion-row>
         </ion-grid>
-    </div>
-
-
+    </ion-content>
 </ion-content>
