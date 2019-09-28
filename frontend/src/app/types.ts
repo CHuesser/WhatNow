@@ -19,6 +19,7 @@ export interface Activity {
     address_longitude: number;
     category: string;
     duration: number;
+    price: string;
 }
 
 export interface Category {
