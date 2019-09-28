@@ -1,14 +1,16 @@
 <ion-content>
-    <div style="height: 50%">
+    <div class ="container" style="height: 50%">
         <ion-img src="https://farm2.staticflickr.com/1139/5160475075_7cb176b4ce_b.jpg"></ion-img>
+        <div class="centered">
+            <p>WHAT NOW?</p>
+        </div>
     </div>
     <ion-fab horizontal="center" vertical="center" slot="fixed">
-        <ion-fab-button color="primary" [routerLink]="'/list'"
+        <ion-fab-button color="success" [routerLink]="'/list'"
                         [queryParams]="{ duration: duration, long: locationlongitude, lat: locationLatitude}">
-            <ion-icon name="arrow-dropright"></ion-icon>
+            <ion-icon id="iconicon" src="../../assets/icon/icon.svg"></ion-icon>
         </ion-fab-button>
     </ion-fab>
-
     <ion-content>
         <ion-grid>
             <ion-row>
@@ -17,7 +19,9 @@
             </ion-row>
             <ion-row>
                 <ion-item-group>
-                    <label>How much of your time can you spend? {{duration}}h</label>
+                    <ion-label>Bored, Stuck or just no idea what to do?</ion-label>
+                    <ion-label>Tell us how much time you have.</ion-label>
+                    <ion-label>{{duration}}h</ion-label>
                     <ion-range min="2" max="10" step="1" snaps="true" [(ngModel)]="duration">
                         <ion-label slot="start">2h</ion-label>
                         <ion-label slot="end">10h+</ion-label>
