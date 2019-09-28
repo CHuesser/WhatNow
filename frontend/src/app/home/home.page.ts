@@ -24,6 +24,7 @@ export class HomePage implements OnInit {
     public locationlongitude = 8.538650199999999;
 
     constructor(private geolocation: Geolocation, private sbbJson: SbbJsonService, private sbbLocation: SbbdestinationService, private httpClient: HttpClient) {
+        Settings.initialize(httpClient);
     }
 
     ngOnInit(): void {
