@@ -21,8 +21,12 @@
             <ion-icon name="funnel"></ion-icon>
           </ion-fab-button>
           <ion-fab-list side="left">
-            <button ion-fab><ion-title>Price</ion-title></button>
-            <button ion-fab><ion-title>Duration</ion-title></button>
+            <ion-fab-button color="primary" (click)="sortActivityByPrice()">
+              <ion-icon name="logo-usd"></ion-icon>
+            </ion-fab-button>
+            <ion-fab-button color="primary" (click)="sortActivityByPrice()">
+              <ion-icon name="time"></ion-icon>
+            </ion-fab-button>
           </ion-fab-list>
         </ion-fab>
       </ion-col>

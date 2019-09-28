@@ -64,16 +64,4 @@ export class ActivityService {
         return this.eventCategoryService.getEventCategory(eventID).pipe(map (c => c ? c.category_id : 1147),
             switchMap((n: number) => this.categoryService.getCategory(n)));
     }
-
-   sortActivityByPrice(startInt: number, endInt: number): Observable<Activity[]> {
-    return this.getMultipleActivities(startInt, endInt).pipe(tap( values => values.sort(
-        (a, b) => a.price.localeCompare(b.price))));
-    }
-
-// TODO
-/*
-    sortActivityByDuration(startInt: number, endInt: number): Observable<Activity[]> {
-        return this.getMultipleActivities(startInt, endInt).pipe(tap( values => values.sort(
-            (a, b) => a.duration - b.duration)));
-    }*/
 }
