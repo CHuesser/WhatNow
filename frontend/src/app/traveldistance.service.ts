@@ -21,7 +21,7 @@ export class TraveldistanceService {
     constructor(public httpClient: HttpClient) {
     }
 
-    public filterReachableLocationsByTravelDistance<T extends HasLocation>(startingPoint: HasLocation, candidates: T[], travelTimeSeconds: number = 3600): Observable<T[]> {
+    public filterReachableLocationsByTravelDistance<T extends HasLocation>(startingPoint: HasLocation, candidates: T[], travelTimeSeconds: number): Observable<T[]> {
 
         // api limit is 2000 locations FIXME sort by location first so we discard likely uninteresting events
         candidates = candidates.slice(0, 1999);
@@ -78,7 +78,15 @@ export class TraveldistanceService {
             }
         ).pipe(
             map(response => response.results[0].locations),
-            map(reachable => candidates.filter(c => reachable.some(r => r.id === String(c.event_id)))));
+            map(reachable => candidates.filter(c => reachable.some(r => {
+                const match = r.id === String(c.event_id);
+                if (match) {
+                    console.log('travel_time', r.properties[0]['travel_time']);
+                    c['trip_time'] = r.properties[0]['travel_time'];
+                }
+                return match;
+            }))));
     }
+
 
 }

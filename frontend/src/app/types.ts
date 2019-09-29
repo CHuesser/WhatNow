@@ -20,6 +20,8 @@ export interface Activity {
     category: string;
     duration: number;
     price: string;
+    total_trip_time_minutes?: number;
+    trip_time?: number;
 }
 
 export interface SbbDestination {

@@ -14,7 +14,8 @@
     <ion-grid>
         <ion-row>
             <ion-col>
-                <p *ngIf="this.activity.duration; else second">{{activity.duration}} Min</p>
+                <p *ngIf="this.activity.total_trip_time_minutes; else second">{{activity.total_trip_time_minutes}}
+                    Min</p>
                 <ng-template #second>
                     <p *ngIf="this.activity.start_time; else elseBlock">Start time: {{activity.start_time | slice: 0:5}}</p>
                 </ng-template>

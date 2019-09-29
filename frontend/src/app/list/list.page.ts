@@ -32,11 +32,11 @@ export class ListPage implements OnInit {
     ngOnInit() {
 
         this.route.queryParams.subscribe(q => {
-            const duration = parseInt(q.duration, 10);
+            const durationHours = parseInt(q.duration, 10);
             const latitude = parseFloat(q.lat);
             const longitude = parseFloat(q.long);
 
-            if (ListPage.cached && ListPage.cached.duration === duration
+            if (ListPage.cached && ListPage.cached.duration === durationHours
                 && ListPage.cached.latitude === latitude && ListPage.cached.longitude === longitude) {
                 this.items = ListPage.cached.activities;
                 console.log('using cached activities', ListPage.cached);
@@ -55,17 +55,25 @@ export class ListPage implements OnInit {
                     this.distanceService.filterReachableLocationsByTravelDistance(
                         startingPoint,
                         value,
-                        Math.min(duration * 60 * 60, this.TRAVEL_TIME_PLATFORM_MAX_DURATION_SECONDS))
+                        Math.min(durationHours * 60 * 60 / 2, this.TRAVEL_TIME_PLATFORM_MAX_DURATION_SECONDS))
                         .subscribe((found: Activity[]) => {
-                            console.log(found);
 
-                            ListPage.cached.duration = duration;
+                            const possible = found.filter(activity => {
+                                const activityDurationMinutes: number = activity.duration ? activity.duration : 60;
+                                const tripTimeSeconds: number = activity.trip_time ? activity.trip_time : 0;
+                                const totatTripTimeSeconds = tripTimeSeconds * 2 + activityDurationMinutes * 60;
+                                activity.total_trip_time_minutes = Math.floor(totatTripTimeSeconds / 60);
+                                return totatTripTimeSeconds < durationHours * 60 * 60;
+
+                            });
+
+                            console.log(found, possible);
+
+                            ListPage.cached.duration = durationHours;
                             ListPage.cached.latitude = latitude;
                             ListPage.cached.longitude = longitude;
-                            ListPage.cached.activities = found;
-
-
-                            this.items = found;
+                            ListPage.cached.activities = possible;
+                            this.items = possible;
                         }, error => console.warn(error));
                 });
         });
@@ -74,7 +82,7 @@ export class ListPage implements OnInit {
     sortActivityByPrice(): Activity[] {
         this.priceSorted = !this.priceSorted;
         if (!this.priceSorted) {
-            this.items.reverse();
+            this.items = this.items.reverse();
         } else {
             this.items = this.items.sort((a, b) => {
                 if (Number(a.price) > Number(b.price)) {
@@ -92,13 +100,13 @@ export class ListPage implements OnInit {
     sortActivityByDuration(): Activity[] {
         this.timeSorted = !this.timeSorted;
         if (!this.timeSorted) {
-            this.items.reverse();
+            this.items = this.items.reverse();
         } else {
             this.items = this.items.sort((a, b) => {
-                if (a.duration > b.duration) {
+                if (a.total_trip_time_minutes > b.total_trip_time_minutes) {
                     return -1;
                 }
-                if (b.duration > a.duration) {
+                if (b.total_trip_time_minutes > a.total_trip_time_minutes) {
                     return 1;
                 }
                 return 0;
