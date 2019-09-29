@@ -81,7 +81,6 @@ export class TraveldistanceService {
             map(reachable => candidates.filter(c => reachable.some(r => {
                 const match = r.id === String(c.event_id);
                 if (match) {
-                    console.log('travel_time', r.properties[0]['travel_time']);
                     c['trip_time'] = r.properties[0]['travel_time'];
                 }
                 return match;

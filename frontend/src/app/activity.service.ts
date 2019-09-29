@@ -21,6 +21,7 @@ export class ActivityService {
                 httpClient.get<Category[]>('./assets/data/category.json').subscribe(categories => {
                     httpClient.get<Activity[]>('./assets/data/event.json').subscribe(activities => {
                         activities = activities.filter(activity => this.isInTheFuture(activity))
+                            .filter(activity => this.isNotTooMuchInTheFuture(activity))
                             .filter(activity => activity.address_latitude &&
                                 activity.address_longitude &&
                                 (typeof activity.address_longitude === 'number') &&
@@ -67,6 +68,15 @@ export class ActivityService {
             datestring = `${activity.date} ${activity.start_time}`;
         }
         return Date.parse(datestring) > Date.now();
+    }
+
+    static isNotTooMuchInTheFuture(activity: Activity): boolean {
+        let datestring = activity.date;
+        if (activity.start_time) {
+            datestring = `${activity.date} ${activity.start_time}`;
+        }
+        const twentyFourHoursInMilliseconds = 86400000;
+        return Date.parse(datestring) < (Date.now() + twentyFourHoursInMilliseconds);
     }
 
     static getPrice(activity: Activity): string {
