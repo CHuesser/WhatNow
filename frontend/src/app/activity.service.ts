@@ -1,10 +1,8 @@
 import {Injectable} from '@angular/core';
 import {Observable, of} from 'rxjs';
-import {Activity, Category} from './types';
-import {map, switchMap, tap} from 'rxjs/operators';
+import {Activity, Category, EventCategory} from './types';
+import {map} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
-import {EventCategoryService} from './event-category.service';
-import {CategoryService} from './category.service';
 
 @Injectable({
     providedIn: 'root'
@@ -18,53 +16,60 @@ export class ActivityService {
 
     public static initialize(httpClient: HttpClient) {
         if (!ActivityService.all) {
-            httpClient.get<Activity[]>(ActivityService.URL).subscribe(activities => {
-                ActivityService.all = activities;
-                ActivityService.allById = activities.reduce((hashmap, currentValue) => {
-                    hashmap[currentValue.event_id] = currentValue;
-                    return hashmap;
-                }, {});
+
+            httpClient.get<EventCategory[]>('./assets/data/event_category.json').subscribe(eventCategories => {
+                httpClient.get<Category[]>('./assets/data/category.json').subscribe(categories => {
+                    httpClient.get<Activity[]>('./assets/data/event.json').subscribe(activities => {
+                        activities = activities.filter(activity => this.isInTheFuture(activity))
+                            .filter(activity => activity.address_latitude &&
+                                activity.address_longitude &&
+                                (typeof activity.address_longitude === 'number') &&
+                                (typeof activity.address_latitude === 'number'));
+
+                        activities.forEach(activity => {
+                            activity.price = ActivityService.getPrice(activity);
+                            activity.duration = ActivityService.getDuration(activity);
+
+                            const activityEventCategory = eventCategories.find(ec => ec.event_id === activity.event_id);
+                            let activityCategory: number;
+                            if (activityEventCategory) {
+                                activityCategory = activityEventCategory.category_id;
+                            } else {
+                                activityCategory = 1147;
+                            }
+                            const category = categories.find(cat => cat.category_id === activityCategory);
+
+                            if (category) {
+                                activity.category = category.title_en;
+                            }
+
+                        });
+
+
+                        ActivityService.all = activities;
+                        ActivityService.allById = activities.reduce((hashmap, currentValue) => {
+                            hashmap[currentValue.event_id] = currentValue;
+                            return hashmap;
+                        }, {});
+                    });
+
+                });
+
             });
+
+
         }
     }
 
-    constructor(public httpClient: HttpClient, public eventCategoryService: EventCategoryService, public categoryService: CategoryService) {
-        ActivityService.initialize(this.httpClient);
-    }
-
-    getActivity(eventID: number): Observable<Activity> {
-        let observable: Observable<Activity>;
-
-        if (ActivityService.all) {
-            observable = of(ActivityService.allById[eventID]);
-        } else {
-            observable = this.httpClient.get<Activity[]>(ActivityService.URL).pipe(map(val => val.find(act => act.event_id == eventID)));
+    static isInTheFuture(activity: Activity): boolean {
+        let datestring = activity.date;
+        if (activity.start_time) {
+            datestring = `${activity.date} ${activity.start_time}`;
         }
-
-        return observable.pipe(
-            tap((y: Activity) => y.price = this.getPrice(y)),
-            tap((c: Activity) => this.getCategory(c.event_id).subscribe(bn => c.category = bn.title_en)),
-            tap((d: Activity) => d.duration = this.getDuration(d)));
+        return Date.parse(datestring) > Date.now();
     }
 
-    getMultipleActivities(startInt: number, endInt: number): Observable<Activity[]> {
-        let observable: Observable<Activity[]>;
-
-        if (ActivityService.all) {
-            observable = of(ActivityService.all.slice(startInt, endInt));
-        } else {
-            observable = this.httpClient.get<Activity[]>(ActivityService.URL).pipe(map(x => x.slice(startInt, endInt)));
-        }
-
-        return observable.pipe(
-            map(x => x.slice(startInt, endInt)),
-            tap((y: Activity[]) => y.forEach(p => p.price = this.getPrice(p))),
-            tap((y: Activity[]) => y.forEach(c => this.getCategory(c.event_id).subscribe(bn => c.category = bn.title_en))),
-            tap((y: Activity[]) => y.forEach(d => d.duration = this.getDuration(d)))
-        );
-    }
-
-    getPrice(activity: Activity): string {
+    static getPrice(activity: Activity): string {
         let price;
         const pattern1 = '(CHF )\\d+\\.*(\\.-)*\\d*';
         const pattern2 = '\\d+\\.*(\\.-)*\\d*( CHF)';
@@ -95,7 +100,7 @@ export class ActivityService {
         return price;
     }
 
-    getDuration(activity: Activity): number {
+    static getDuration(activity: Activity): number {
         let duration;
         if (activity.start_time && activity.end_time &&
             activity.start_time.match('\\d{2}:\\d{2}:\\d{2}\\.\\d') &&
@@ -112,9 +117,33 @@ export class ActivityService {
         return duration;
     }
 
-    getCategory(eventID: number): Observable<Category> {
-        return this.eventCategoryService.getEventCategory(eventID).pipe(map(c => c ? c.category_id : 1147),
-            switchMap((n: number) => this.categoryService.getCategory(n)));
+    constructor(public httpClient: HttpClient) {
+        ActivityService.initialize(this.httpClient);
     }
+
+    getActivity(eventID: number): Observable<Activity> {
+        let observable: Observable<Activity>;
+
+        if (ActivityService.all) {
+            observable = of(ActivityService.allById[eventID]);
+        } else {
+            observable = this.httpClient.get<Activity[]>(ActivityService.URL).pipe(map(val => val.find(act => act.event_id == eventID)));
+        }
+        return observable;
+    }
+
+    getMultipleActivities(startInt: number, endInt: number): Observable<Activity[]> {
+        let observable: Observable<Activity[]>;
+
+        if (ActivityService.all) {
+            observable = of(ActivityService.all.slice(startInt, endInt));
+        } else {
+            observable = this.httpClient.get<Activity[]>(ActivityService.URL).pipe(map(x => x.slice(startInt, endInt)));
+        }
+
+        return observable;
+    }
+
+
 }
 

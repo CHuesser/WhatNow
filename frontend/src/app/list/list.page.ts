@@ -49,23 +49,25 @@ export class ListPage implements OnInit {
                 event_id: 'startlocation'
             };
 
-            this.activityService.getMultipleActivities(1, 21).subscribe(value => {
-                this.distanceService.filterReachableLocationsByTravelDistance(
-                    startingPoint,
-                    value,
-                    Math.min(duration * 60 * 60, this.TRAVEL_TIME_PLATFORM_MAX_DURATION_SECONDS))
-                    .subscribe((found: Activity[]) => {
-                        console.log(found);
+            this.activityService.getMultipleActivities(1, 100000)
+                .subscribe(value => {
 
-                        ListPage.cached.duration = duration;
-                        ListPage.cached.latitude = latitude;
-                        ListPage.cached.longitude = longitude;
-                        ListPage.cached.activities = found;
+                    this.distanceService.filterReachableLocationsByTravelDistance(
+                        startingPoint,
+                        value,
+                        Math.min(duration * 60 * 60, this.TRAVEL_TIME_PLATFORM_MAX_DURATION_SECONDS))
+                        .subscribe((found: Activity[]) => {
+                            console.log(found);
+
+                            ListPage.cached.duration = duration;
+                            ListPage.cached.latitude = latitude;
+                            ListPage.cached.longitude = longitude;
+                            ListPage.cached.activities = found;
 
 
-                        this.items = found;
-                    }, error => console.warn(error));
-            });
+                            this.items = found;
+                        }, error => console.warn(error));
+                });
         });
     }
 
