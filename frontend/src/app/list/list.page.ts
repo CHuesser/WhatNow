@@ -20,6 +20,7 @@ export class ListPage implements OnInit {
     private static cached: Cached = new Cached();
 
     items: Activity[];
+    allItems: Activity[];
 
     private priceSorted: boolean;
     private timeSorted: boolean;
@@ -74,8 +75,20 @@ export class ListPage implements OnInit {
                             ListPage.cached.longitude = longitude;
                             ListPage.cached.activities = possible;
                             this.items = possible;
+                            this.allItems = this.items;
                         }, error => console.warn(error));
                 });
+        });
+    }
+
+    filterList(evt) {
+        this.items = this.allItems;
+        const searchTerm = evt.target.value;
+        if (!searchTerm) {
+            return;
+        }
+        this.items =  this.items.filter (item => {
+            return (item.title_en.toLowerCase().indexOf(searchTerm.toLowerCase()) > -1);
         });
     }
 
