@@ -18,7 +18,7 @@
 </ion-header>
 <ion-content>
     <div id="profile-info" *ngIf="this.activity">
-            <ion-card>
+        <ion-card>
             <ion-row>
                 <ion-chip *ngIf="this.activity.category" color="secondary">
                     <ion-label>{{activity.category}}</ion-label>
@@ -29,7 +29,8 @@
                     <p>Start</p>
                 </ion-col>
                 <ion-col>
-                    <p *ngIf="this.activity.start_time; else elseBlock" class="info-data">{{activity.start_time | slice: 0:5}}</p>
+                    <p *ngIf="this.activity.start_time; else elseBlock"
+                       class="info-data">{{activity.start_time | slice: 0:5}}</p>
                     <ng-template #elseBlock>
                         <p class="info-data">No info.</p>
                     </ng-template>
@@ -38,7 +39,8 @@
                     <p>End</p>
                 </ion-col>
                 <ion-col>
-                    <p *ngIf="this.activity.end_time; else elseBlock" class="info-data">{{activity.end_time | slice: 0:5}}</p>
+                    <p *ngIf="this.activity.end_time; else elseBlock"
+                       class="info-data">{{activity.end_time | slice: 0:5}}</p>
                     <ng-template #elseBlock>
                         <p class="info-data">No info.</p>
                     </ng-template>
@@ -56,17 +58,22 @@
                 <ion-col>
                     <p>Price</p>
                 </ion-col>
-                <ion-col >
+                <ion-col>
                     <p *ngIf="this.activity.price; else elseBlock" class="info-data">{{activity.price}} CHF</p>
                     <ng-template #elseBlock>
                         <p class="info-data">No info.</p>
                     </ng-template>
                 </ion-col>
             </ion-row>
-                <hr>
-                <ion-card-content>
+            <hr>
+            <ion-card-content>
                 <span [innerHTML]="activity.long_description_en"></span>
-                </ion-card-content>
-            </ion-card>
+            </ion-card-content>
+        </ion-card>
+
+
+        <ion-button *ngIf="this.activity.title_en.includes('SBB')" expand="full" color="danger">Buy SBB train ticket now
+        </ion-button>
+
     </div>
 </ion-content>
