@@ -1,4 +1,5 @@
 # WhatNow
+![alt text](mockuppng.png)
 ## Inspiration
 Imagine, you are in a city and you just got a message that your flight got delayed for several hours. Now what? This particularly user story of Swisscom’s challenge @ Hackzurich2019 got stuck in our head. Let’s be honest, we all know this situation all too well. Therefore, we need to find a solution that displays activities to spend this time well and not waste it. Additionally, who does not know the lazy Sunday afternoons that get boring after while, but we just do not know what to do. Wouldn’t it be nice, to have an app, where you just have to specify how much time you have, and it finds the most suitable events and travel destination reachable? 
 
